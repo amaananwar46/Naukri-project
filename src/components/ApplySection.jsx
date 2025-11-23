@@ -33,7 +33,7 @@ export default function ApplySection() {
     );
     // console.log(filteredJob, "thiis is filter jobs")
     setDesiredJob(filteredJob);
-    // console.log("job set ho chuki h", desiredJob);
+    // console.log("job set ho chuki h", desiredJob); 
   }, [id, categoryJobs]);
 
   
