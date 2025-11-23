@@ -1,9 +1,9 @@
 import React, { createContext, useEffect, useState } from 'react'
-import NavBar from "./components/NavBar.jsx";
+import Navbar from "./components/NavBar.jsx"
 import { Route, Routes } from 'react-router-dom'
 import Home from './components/Home'
 import Settings from './components/Settings'
-import Jobs from './components/Jobs'
+import Jobs from './components/Jobs.jsx'
 import ApplySection from './components/ApplySection'
 import TopCompanydata from './components/TopCompanyData'
 import Register from './components/Register'
@@ -29,7 +29,7 @@ gettingJobs()
     <div>
 
 <myContext.Provider value={{jobsArray}}>
-  <NavBar/>
+  <Navbar/>
 
 <Routes>
   <Route path="/" element={<Home/>}/>
