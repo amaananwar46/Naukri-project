@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react'
-import Temp from "./components/NavBar.jsx"
+import Navbar from './Navbar.jsx'
 import { Route, Routes } from 'react-router-dom'
 import Home from './components/Home'
 import Settings from './components/Settings'

@@ -3,15 +3,15 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FaSearch } from "react-icons/fa";
-import { userSearch } from "../toolkit/SearchSlice";
-import ProfileComp from "./ProfileComp";
-import Overlay from "./Overlay";
+import { userSearch } from "./toolkit/SearchSlice";
+import ProfileComp from "./components/ProfileComp";
+import Overlay from "./components/Overlay";
 import { Link } from "react-router-dom";
-import { myContext } from "../App";
+import { myContext } from "./App";
 // import Home from "./Home";
 // import Jobs from "./Jobs";
 
-export default function Temp() {
+export default function Navbar() {
   const [Visible, setVisible] = useState([false, false]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
