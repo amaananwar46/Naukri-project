@@ -11,7 +11,7 @@ import { myContext } from "../App";
 // import Home from "./Home";
 // import Jobs from "./Jobs";
 
-export default function Navbar() {
+export default function NavBar() {
   const [Visible, setVisible] = useState([false, false]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
