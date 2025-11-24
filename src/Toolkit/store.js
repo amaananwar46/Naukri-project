@@ -1,7 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
 import loginReducer from "./LoginSlice"
-import applicationHistory from "./applicationSlice"
-// import ApplicationHistory from "../components/ApplicationHistory";
+
+    
+import applicationHistory from "../applicationSlice"
 
   const store= configureStore({
     reducer:{
