@@ -1,28 +1,49 @@
-import React, { useState, useEffect } from 'react';  // Added useEffect
+
+
+
+
+
+
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { removeSave } from '../applicationSlice';
+import { removeSave, setSavedJobs } from '../applicationSlice';  // Import setSavedJobs
 import { Link } from 'react-router-dom';
 
 export default function Savedjobs() {
   const { savedJobs } = useSelector(state => state.applicationHistory);
   const dispatch = useDispatch();
   
-  // Use Redux state as the single source of truth, and sync localStorage in useEffect
-  const [savedJobss, setSavedJob] = useState(savedJobs || []);
+  // Initialize local state with localStorage data
+  const [savedJobss, setSavedJob] = useState(() => {
+    const jobs = JSON.parse(localStorage.getItem("savedJobs")) || [];
+    return jobs;
+  });
 
-  // Sync local state with Redux state on changes
+  // On mount, load from localStorage and dispatch to Redux to sync
+  useEffect(() => {
+    const jobs = JSON.parse(localStorage.getItem("savedJobs")) || [];
+    dispatch(setSavedJobs(jobs));  // Sync Redux with localStorage
+  }, [dispatch]);
+
+  // Sync local state with Redux state on changes (e.g., if updated elsewhere)
   useEffect(() => {
     setSavedJob(savedJobs || []);
   }, [savedJobs]);
 
-  // Also, update localStorage whenever savedJobss changes
+  // Update localStorage whenever savedJobss changes
   useEffect(() => {
     localStorage.setItem("savedJobs", JSON.stringify(savedJobss));
   }, [savedJobss]);
 
   const handleRemove = (index) => {
-    dispatch(removeSave({ index }));  // Dispatch to Redux (assuming it updates the state correctly)
-    // Local state will update via useEffect when Redux state changes
+    // Update local state
+    const updatedJobs = savedJobss.filter((_, i) => i !== index);
+    setSavedJob(updatedJobs);
+    
+    // Dispatch to Redux
+    dispatch(removeSave({ index }));
+    
+    // localStorage will update via useEffect
   };
 
   return (
@@ -39,7 +60,7 @@ export default function Savedjobs() {
                 </Link>
                 <button 
                   onClick={(e) => {
-                    e.stopPropagation();  // Prevent event bubbling to the Link
+                    e.stopPropagation();
                     handleRemove(index);
                   }}
                   className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors ml-4"

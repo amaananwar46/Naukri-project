@@ -8,8 +8,7 @@ import ProfileComp from "./components/ProfileComp";
 import Overlay from "./components/Overlay";
 import { Link } from "react-router-dom";
 import { myContext } from "./App";
-// import Home from "./Home";
-// import Jobs from "./Jobs";
+
 export default function Navbar() {
   const [Visible, setVisible] = useState([false, false]);
   const [showSuggestions, setShowSuggestions] = useState(false);
