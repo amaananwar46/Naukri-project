@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { addJob } from "../toolkit/applicationSlice";
+import { addJob } from "../applicationSlice";
 import { useDispatch } from "react-redux";
 export default function ApplySection() {
   const isLoggedin = JSON.parse(localStorage.getItem("user")) || null;

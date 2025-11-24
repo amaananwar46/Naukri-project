@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { myContext } from "../App";
 import { useDispatch } from "react-redux";
-import { addSave } from "../toolkit/applicationSlice";
+import { addSave } from "../applicationSlice";
 
 export default function Jobs() {
   const { category } = useParams();

@@ -3,7 +3,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FaSearch } from "react-icons/fa";
-import { userSearch } from "./toolkit/SearchSlice";
+// import { userSearch } from "../toolkit/SearchSlice";
 import ProfileComp from "./components/ProfileComp";
 import Overlay from "./components/Overlay";
 import { Link } from "react-router-dom";
@@ -164,3 +164,7 @@ export default function Navbar() {
     </>
   );
 }
+
+
+
+

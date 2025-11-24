@@ -1,21 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';  // Added useEffect
 import { useDispatch, useSelector } from 'react-redux';
-import { removeSave } from '../toolkit/applicationSlice';
+import { removeSave } from '../applicationSlice';
 import { Link } from 'react-router-dom';
 
 export default function Savedjobs() {
   const { savedJobs } = useSelector(state => state.applicationHistory);
-  const jobs = JSON.parse(localStorage.getItem("savedJobs"));
-  const [savedJobss, setSavedJob] = useState(jobs || savedJobs);
   const dispatch = useDispatch();
+  
+  // Use Redux state as the single source of truth, and sync localStorage in useEffect
+  const [savedJobss, setSavedJob] = useState(savedJobs || []);
+
+  // Sync local state with Redux state on changes
+  useEffect(() => {
+    setSavedJob(savedJobs || []);
+  }, [savedJobs]);
+
+  // Also, update localStorage whenever savedJobss changes
+  useEffect(() => {
+    localStorage.setItem("savedJobs", JSON.stringify(savedJobss));
+  }, [savedJobss]);
 
   const handleRemove = (index) => {
-    dispatch(removeSave({ index }));  // Dispatch to Redux
-    // Update local state to reflect the change
-    const updatedJobs = savedJobss.filter((_, i) => i !== index);
-    setSavedJob(updatedJobs);
-    // Optionally update localStorage
-    localStorage.setItem("savedJobs", JSON.stringify(updatedJobs));
+    dispatch(removeSave({ index }));  // Dispatch to Redux (assuming it updates the state correctly)
+    // Local state will update via useEffect when Redux state changes
   };
 
   return (
@@ -26,21 +33,20 @@ export default function Savedjobs() {
         <ul className="space-y-4">
           {savedJobss.map((job, index) => {
             return (
-
-             <Link to={`/applyto/${encodeURIComponent(job?.category)}/${job?.id} `} key={index}>
-             
-             
-              <li  className="bg-white shadow-md rounded-lg p-4 flex justify-between items-center">
-                <span className="text-lg font-medium text-gray-700">{job.title}</span>
+              <li key={job.id || index} className="bg-white shadow-md rounded-lg p-4 flex justify-between items-center">
+                <Link to={`/applyto/${encodeURIComponent(job?.category)}/${job?.id}`} className="flex-1">
+                  <span className="text-lg font-medium text-gray-700">{job.title}</span>
+                </Link>
                 <button 
-                  onClick={() => handleRemove(index)}  // Use the new handler
-                  className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors"
-                  >
+                  onClick={(e) => {
+                    e.stopPropagation();  // Prevent event bubbling to the Link
+                    handleRemove(index);
+                  }}
+                  className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors ml-4"
+                >
                   Remove from save
                 </button>
               </li>
-                  </Link>
-
             );
           })}
         </ul>
