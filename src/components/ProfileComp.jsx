@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
-import { removeUser } from "../toolkit/LoginSlice";
+import { removeUser } from "../toolkit/LoginSlice.js";
 export default function ProfileComp({ setIsProfileOpen }) {
   const dispatch = useDispatch();
   const userLoggedIn = JSON.parse(localStorage.getItem("user")) || null;
